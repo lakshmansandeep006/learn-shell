@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ID=$(id -u)
+ID=$(id -0)
 
 if ["$ID" -ne 0] ; then
    echo -e "\e[31m Script is expected to be executed as root user \e[0m"
