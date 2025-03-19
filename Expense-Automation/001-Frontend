@@ -8,7 +8,7 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-echo -e "\e[32m installing nginx \e0m]"
+echo -e "\e[32m installing nginx \e[0m"
 dnf install nginx -y
 
 echo -e "\e[32m Copying proxy file \e[0m"
@@ -27,7 +27,7 @@ cd /usr/share/nginx/html
 echo -e "\e[32m Extracting the Frontend \e[0m"
 unzip -o /tmp/frontend.zip
 
-echo -e "\e[32m Starting Nginx \e[0m"]
+echo -e "\e[32m Starting Nginx \e[0m"
 systemctl restart nginx 
 
 echo "** Frontend Installation Is Completed **"
