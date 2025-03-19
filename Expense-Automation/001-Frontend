@@ -23,12 +23,15 @@ echo -e "\e[35m $* \e[0m"
 
 }
 
+
+
 COLOUR installing nginx
 dnf install nginx -y  &>> LOG
 stat $?
 
 if [ -f proxy.conf ] ; then
    COLOUR proxy file found
+   stat $?
 else
    echo -e \e[31m Proxy file not found \e[0m
    exit 1
