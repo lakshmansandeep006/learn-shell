@@ -1,5 +1,6 @@
 #!/bin/bash
 
+COMPONENT=frontend
 ID=$(id -u)
 LOG="/tmp/frontend.log"
 
@@ -39,19 +40,19 @@ COLOUR Performing a Cleanup
 rm -rf /usr/share/nginx/html/* &>> LOG
 stat $?
 
-COLOUR Downloading frontend
-curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> LOG
+COLOUR Downloading $COMPONENT
+curl -o /tmp/fron$COMPONENT.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> LOG
 cd /usr/share/nginx/html 
 stat $?
 
-COLOUR Extracting the Frontend
-unzip -o /tmp/frontend.zip &>> LOG
+COLOUR Extracting the $COMPONENT
+unzip -o /tmp/$COMPONENT.zip &>> LOG
 stat $?
 
 COLOUR Starting Nginx
 systemctl restart nginx &>> LOG
 stat $? 
 
-echo -e "\n\t** Frontend Installation Is Completed **"
+echo -e "\n\t** $COMPONENT Installation Is Completed **"
 
 
