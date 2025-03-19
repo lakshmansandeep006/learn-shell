@@ -14,36 +14,40 @@ if [ $1 -eq 0 ] ; then
 else
    echo -e "\e[31m failure \e[0m"
 fi 
+}
+
+COLOUR() {
+echo -e "\e[35m $0 \e[0m"
 
 }
 
-echo -e "\e[35m installing nginx \e[0m"
+COLOUR installing nginx
 dnf install nginx -y  &>> /tmp/frontend.log
 stat $?
 
-echo -e "\e[35m Copying proxy file \e[0m"
+COLOUR Copying proxy file
 cp proxy.conf /etc/nginx/default.d/expense.conf &>> /tmp/frontend.log
 stat $?
 
 
-echo -e "\e[35m Start Nginx \e[0m"
+COLOUR Starting Nginx
 systemctl enable nginx &>> /tmp/frontend.log
 stat $?
 
-echo -e "\e[35m Performing a Cleanup \e[0m"
+COLOUR Performing a Cleanup
 rm -rf /usr/share/nginx/html/* &>> /tmp/frontend.log
 stat $?
 
-echo -e "\e[35m Downloading frontend \e[0m"
+COLOUR Downloading frontend
 curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> /tmp/frontend.log
 cd /usr/share/nginx/html 
 stat $?
 
-echo -e "\e[35m Extracting the Frontend \e[0m"
+COLOUR Extracting the Frontend
 unzip -o /tmp/frontend.zip &>> /tmp/frontend.log
 stat $?
 
-echo -e "\e[35m Starting Nginx \e[0m"
+COLOUR Starting Nginx
 systemctl restart nginx &>> /tmp/frontend.log 
 stat $? 
 
