@@ -27,6 +27,13 @@ COLOUR installing nginx
 dnf install nginx -y  &>> LOG
 stat $?
 
+if [ -f proxy.conf ] ; then
+   COLOUR proxy.conf found
+else
+   COLOUR Proxy.conf is not found
+   exit 1
+fi
+
 COLOUR Copying proxy file
 cp proxy.conf /etc/nginx/default.d/expense.conf &>> LOG
 stat $?
