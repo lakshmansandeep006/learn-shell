@@ -26,15 +26,18 @@ echo -e "\e[35m $* \e[0m"
 
 COLOUR installing $COMPONENT
 dnf install mysql-server -y &>> LOG
-stat=$?
+stat $?
 
 COLOUR Enabling $COMPONENT
 systemctl enable mysqld  &>> LOG
+stat $?
 
 COLOUR Starting $COMPONENT
 systemctl start  mysqld  &>> LOG
+stat $?
 
 COLOUR COnfiguring $COMPONENT root passowrd
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>> LOG
+stat $?
 
-echo -e "\t\n** Mysql Installation Completed **"
+echo -e "\n\t** Mysql Installation Completed **"
