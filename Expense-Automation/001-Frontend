@@ -40,13 +40,13 @@ COLOUR Performing a Cleanup
 rm -rf /usr/share/nginx/html/* &>> LOG
 stat $?
 
-COLOUR Downloading $COMPONENT
-curl -o /tmp/$COMPONENT.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> LOG
+COLOUR Downloading COMPONENT
+curl -o /tmp/COMPONENT.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> LOG
 cd /usr/share/nginx/html 
 stat $?
 
-COLOUR Extracting the $COMPONENT
-unzip -o /tmp/$COMPONENT.zip &>> LOG
+COLOUR Extracting the COMPONENT
+unzip -o /tmp/COMPONENT.zip &>> LOG
 stat $?
 
 COLOUR Starting Nginx
