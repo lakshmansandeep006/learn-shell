@@ -41,7 +41,7 @@ rm -rf /usr/share/nginx/html/* &>> LOG
 stat $?
 
 COLOUR Downloading $COMPONENT
-curl -o /tmp/$COMPONENT.zip https://expense-web-app.s3.amazonaws.com/$COMPONENT.zip &>> LOG
+curl -o /tmp/$COMPONENT.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> LOG
 cd /usr/share/nginx/html 
 stat $?
 
