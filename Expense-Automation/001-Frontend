@@ -30,7 +30,7 @@ stat $?
 if [ -f proxy.conf ] ; then
    COLOUR proxy.conf found
 else
-   COLOUR Proxy.conf is not found
+   echo -e \e[31m Proxy.conf is not found \e[0m
    exit 1
 fi
 
