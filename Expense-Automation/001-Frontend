@@ -8,17 +8,26 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-echo "in 
-dnf install nginx -y  
-cp proxy.conf /etc/nginx/default.d/expense.conf 
-systemctl enable nginx    
-rm -rf /usr/share/nginx/html/*   
-curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip
-cd /usr/share/nginx/html 
-unzip /tmp/frontend.zip
-pwd
-ls -ltr
+echo -e "\e[32m installing nginx \e0m]"
+dnf install nginx -y
 
+echo -e "\e[32m Copying proxy file \e[0m"
+cp proxy.conf /etc/nginx/default.d/expense.conf 
+
+echo -e "\e[32m Start Nginx \e[0m
+systemctl enable nginx    
+
+echo -e "\e[32m Performing a Cleanup \e[0m" 
+rm -rf /usr/share/nginx/html/*
+
+echo -e "\e[32m Downloading frontend \e[0m"
+curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip
+cd /usr/share/nginx/html
+
+echo -e "\e[32m Extracting the Frontend \e[0m"
+unzip -o /tmp/frontend.zip
+
+echo -e "\e[32m Starting Nginx \e[0m"]
 systemctl restart nginx 
 
 echo "** Frontend Installation Is Completed **"
