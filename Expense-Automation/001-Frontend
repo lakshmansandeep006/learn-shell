@@ -8,27 +8,27 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-echo -e "installing nginx"
-dnf install nginx -y
+echo -e "\e[35m installing nginx \e[0m"
+dnf install nginx -y  &>> /tmp/frontend.log
 
-echo -e "Copying proxy file"
-cp proxy.conf /etc/nginx/default.d/expense.conf 
+echo -e "\e[35m Copying proxy file \e[0m"
+cp proxy.conf /etc/nginx/default.d/expense.conf &>> /tmp/frontend.log
 
-echo -e "Start Nginx "
-systemctl enable nginx    
+echo -e "\e[35m Start Nginx \e[0m"
+systemctl enable nginx &>> /tmp/frontend.log
 
-echo -e "Performing a Cleanup" 
-rm -rf /usr/share/nginx/html/*
+echo -e "\e[35m Performing a Cleanup \e[0m"
+rm -rf /usr/share/nginx/html/* &>> /tmp/frontend.log
 
-echo -e "Downloading frontend"
-curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip
-cd /usr/share/nginx/html
+echo -e "\e[35m Downloading frontend \e[0m"
+curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip &>> /tmp/frontend.log
+cd /usr/share/nginx/html 
 
-echo -e "Extracting the Frontend"
-unzip -o /tmp/frontend.zip
+echo -e "\e[35m Extracting the Frontend \e[0m"
+unzip -o /tmp/frontend.zip &>> /tmp/frontend.log
 
-echo -e "Starting Nginx"
-systemctl restart nginx 
+echo -e "\e[35m Starting Nginx \e[0m"
+systemctl restart nginx &>> /tmp/frontend.log 
 
 echo "** Frontend Installation Is Completed **"
 
