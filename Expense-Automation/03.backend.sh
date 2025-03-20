@@ -58,8 +58,9 @@ dnf install mysql-server -y
 stat $?
 
 COLOUR Injucting Schema to Mysql DB
-mysql -h MYSQL-SERVER-IPADDRESS -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOG
+mysql -h 172.31.84.122 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOG
 stat $?
+#MYSQL-SERVER-IPADDRESS
 
 COLOUR system reload
 systemctl daemon-reload &>> $LOG
