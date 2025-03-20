@@ -1,73 +1,76 @@
 #!/bin/bash
 
-COMPONENT="nodeja"
+COMPONENT="backend"
 LOG="/tmp/backend.log"
 APPUSER="expense"
 
 source common.sh    #This source command will pull the common.sh file locally that has functions & variables we had declared
 
-COLOUR Disabling default $COMPONENT 16
+COLOUR Disabling default nodejs16
 dnf module disable nodejs -y &>> $LOG
 stat $?
 
-COLOUR Enabling $COMPONENT 20
+COLOUR Enabling nodejs20
 dnf module enable nodejs:20 -y &>> $LOG
 stat $?
 
-COLOUR installing $COMPONENT 20
+COLOUR installing nodejs20
 dnf install nodejs -y &>> $LOG
 stat $?
 
-COLOUR Creating User $APPUSER
+id $APPUSER &>> $LOG
+if [ $? -ne 0 ] ; then
+COLOUR Creating User $APPUSER service account
 useradd -o $APPUSER &>> $LOG
 stat $?
+fi
+
+COLOUR cleanup old app content
+rm -rf /app  &>> $LOG
 
 COLOUR Creating app directory
-mkdir -o /app &>> $LOG
+mkdir /app &>> $LOG
 stat $?
 
-COLOUR downloading backend server
+COLOUR downloading $COMPONENT server
 curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip &>> $LOG
 
-COLOUR copying backend package
+COLOUR configuring backend package
 cp backend.service /etc/systemd/system/backend.service &>> $LOG
 stat $?
 
-cd /app &>> $LOG
-
-COLOUR extracting backend server
+COLOUR extracting $COMPONENT
+cd /app
 unzip -o /tmp/backend.zip
 stat $?
 
-cd /app
-
-COLOUR installing required files
+COLOUR Generting Artifacts
 npm install 
 stat $?
 
-COLOUR Adding rights and permissions
+COLOUR Defining permissions to $APPUSER
 chmod -R 775 /app
 chown -R expense:expense /app
 stat $?
 
-COLOUR installing mysql server
+COLOUR installing mysql client
 dnf install mysql-server -y
 stat $?
 
-COLOUR connecting to mysql server with root
-mysql -h localhost -uroot -pExpenseApp@1 < /app/schema/backend.sql
+COLOUR Injucting Schema to Mysql DB
+mysql -h MYSQL-SERVER-IPADDRESS -uroot -pExpenseApp@1 < /app/schema/backend.sql
 stat $?
 
 COLOUR system reload
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOG
 stat $?
 
-COLOUR enabling backend
-systemctl enable backend
+COLOUR enabling $COMPONENT
+systemctl enable backend &>> $LOG
 stat $?
 
-COLOUR starting backend
-systemctl start backend
+COLOUR starting $COMPONENT
+systemctl start backend &>> $LOG
 stat $?
 
-echo -e "\n\t ** backend Installation is completed ** "
+echo -e "\n\t ** $COMPONENT Installation is completed ** "
