@@ -27,6 +27,7 @@ fi
 
 COLOUR cleanup old app content
 rm -rf /app  &>> $LOG
+stat $?
 
 COLOUR Creating app directory
 mkdir /app &>> $LOG
