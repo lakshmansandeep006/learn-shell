@@ -50,7 +50,7 @@ stat $?
 
 COLOUR Defining permissions to $APPUSER
 chmod -R 775 /app
-chown -R expense:expense /app
+chown -R $APPUSER:$APPUSER /app
 stat $?
 
 COLOUR installing mysql client
@@ -58,7 +58,7 @@ dnf install mysql-server -y
 stat $?
 
 COLOUR Injucting Schema to Mysql DB
-mysql -h MYSQL-SERVER-IPADDRESS -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h MYSQL-SERVER-IPADDRESS -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOG
 stat $?
 
 COLOUR system reload
