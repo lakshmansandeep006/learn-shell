@@ -21,7 +21,7 @@ stat $?
 id $APPUSER &>> $LOG
 if [ $? -ne 0 ] ; then
 COLOUR Creating User $APPUSER service account
-useradd -o $APPUSER &>> $LOG
+useradd $APPUSER &>> $LOG
 stat $?
 fi
 
@@ -41,11 +41,11 @@ stat $?
 
 COLOUR extracting $COMPONENT
 cd /app
-unzip -o /tmp/backend.zip
+unzip -o /tmp/backend.zip &>> $LOG
 stat $?
 
 COLOUR Generting Artifacts
-npm install 
+npm install &>> $LOG
 stat $?
 
 COLOUR Defining permissions to $APPUSER
@@ -54,7 +54,7 @@ chown -R $APPUSER:$APPUSER /app
 stat $?
 
 COLOUR installing mysql client
-dnf install mysql-server -y
+dnf install mysql-server -y &>> $LOG
 stat $?
 
 COLOUR Injucting Schema to Mysql DB
