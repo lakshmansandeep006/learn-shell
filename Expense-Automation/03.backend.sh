@@ -3,7 +3,7 @@
 COMPONENT="backend"
 LOG="/tmp/backend.log"
 APPUSER="expense"
-
+ROOTPASS=$1
 source common.sh    #This source command will pull the common.sh file locally that has functions & variables we had declared
 
 COLOUR Disabling default nodejs16
@@ -59,7 +59,7 @@ dnf install mysql-server -y &>> $LOG
 stat $?
 
 COLOUR Injucting Schema to Mysql DB
-mysql -h 172.31.84.122 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOG
+mysql -h 172.31.84.122 -uroot -p$ROOTPASS < /app/schema/backend.sql &>> $LOG
 stat $?
 #MYSQL-SERVER-IPADDRESS
 
