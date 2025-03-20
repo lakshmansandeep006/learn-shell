@@ -3,6 +3,7 @@
 COMPONENT="mysql"
 ID=$(id -u)
 LOG="/tmp/mysql.log"
+ROOTPASS="ExpenseApp@1"
 
 if [ $ID -ne 0 ]; then
    echo -e "\e[31m Script is expected to be executed as root user or with sudo scriptName.sh \e[0m"
@@ -37,7 +38,7 @@ systemctl start  mysqld  &>> $LOG
 stat $?
 
 COLOUR COnfiguring $COMPONENT root passowrd
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $LOG
+mysql_secure_installation --set-root-pass $ROOTPASS &>> $LOG
 stat $?
 
 echo -e "\n\t** Mysql Installation Completed **"
