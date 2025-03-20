@@ -1,31 +1,32 @@
 #!/bin/bash
 
-COMPONENT="backend"
+COMPONENT="nodeja"
 LOG="/tmp/backend.log"
+APPUSER="expense"
 
 source common.sh    #This source command will pull the common.sh file locally that has functions & variables we had declared
 
-COLOUR disabling nodejs
+COLOUR Disabling default $COMPONENT 16
 dnf module disable nodejs -y &>> $LOG
 stat $?
 
-COLOUR Enabling nodeJS
+COLOUR Enabling $COMPONENT 20
 dnf module enable nodejs:20 -y &>> $LOG
 stat $?
 
-COLOUR installing nodejs
+COLOUR installing $COMPONENT 20
 dnf install nodejs -y &>> $LOG
 stat $?
 
-COLOUR Creating User expense
-useradd -o expense &>> $LOG
+COLOUR Creating User $APPUSER
+useradd -o $APPUSER &>> $LOG
 stat $?
 
 COLOUR Creating app directory
 mkdir -o /app &>> $LOG
 stat $?
 
-COLOUR downloading $COMPONENT server
+COLOUR downloading backend server
 curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip &>> $LOG
 
 COLOUR copying backend package
@@ -34,7 +35,7 @@ stat $?
 
 cd /app &>> $LOG
 
-COLOUR extracting $COMPONENT server
+COLOUR extracting backend server
 unzip -o /tmp/backend.zip
 stat $?
 
@@ -44,7 +45,7 @@ COLOUR installing required files
 npm install 
 stat $?
 
-COLOUR Adding rights & permissions
+COLOUR Adding rights and permissions
 chmod -R 775 /app
 chown -R expense:expense /app
 stat $?
@@ -61,12 +62,12 @@ COLOUR system reload
 systemctl daemon-reload
 stat $?
 
-COLOUR enabling $COMPONENT
+COLOUR enabling backend
 systemctl enable backend
 stat $?
 
-COLOUR starting $COMPONENT
+COLOUR starting backend
 systemctl start backend
 stat $?
 
-echo -e "\n\t ** $COMPONENT Installation is completed ** "
+echo -e "\n\t ** backend Installation is completed ** "
