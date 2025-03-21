@@ -59,7 +59,7 @@ dnf install mysql-server -y &>> $LOG
 stat $?
 
 COLOUR Injucting Schema to Mysql DB
-mysql -h 172.31.84.122 -uroot -p$ROOTPASS < /app/schema/backend.sql &>> $LOG
+mysql -h 172.31.89.189 -uroot -p$ROOTPASS < /app/schema/backend.sql &>> $LOG
 stat $?
 #MYSQL-SERVER-IPADDRESS
 
