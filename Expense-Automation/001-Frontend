@@ -45,6 +45,3 @@ systemctl restart nginx &>> $LOG
 stat $? 
 
 echo -e "\n\t** $COMPONENT Installation Is Completed **"
-
-
-1
